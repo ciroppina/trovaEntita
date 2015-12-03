@@ -189,6 +189,24 @@ public class FindEntity {
 		
 		return sortByProperty(results);
 	}
+	
+	/**
+	 * after building occurences of every string that matches the regEx, and stored their offsets
+	 * into the proper Group-object, retains only the Group(s) with more than 'frequency' offsets
+	 * @param frequency: minimum occurrences of the regEx, in the text
+	 * @return results: the (descending) sorted map of all the Group-objects built
+	 */
+	public Map<String, Group> grouphMinFrequencyOf(Long frequency) {
+		Map<String, Group> counted = storeGroupsOccurrencesFoundIn(this.text);
+		Map<String, Group> results = new HashMap<String, Group>();
+		Iterator<String> keys = counted.keySet().iterator();
+		while (keys.hasNext()) {
+			String k = keys.next();
+			if (counted.get(k).getCount() > frequency) results.put(k, counted.get(k));
+		}
+		
+		return sortByProperty(results);
+	}
 
 	/**
 	 * @param toTest: the text to parse

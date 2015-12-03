@@ -52,7 +52,7 @@ public class FindEntityTest {
 		currentRE = regex.getProperty("REGEX_03");
 		//debug: console.println("RegEx under test: " + currentRE);
 
-		FileInputStream in  = new FileInputStream( new File(whereIAm + "/src/test/resources/194.txt"));
+		FileInputStream in  = new FileInputStream( new File(whereIAm + "/src/test/resources/64981.txt")); //194.txt
 		byte[] b = new byte[in.available()]; in.read(b);
 		toTest = new String(b, StandardCharsets.UTF_8);
 		//debug: console.println("Text under test: " + toTest);
@@ -177,6 +177,36 @@ public class FindEntityTest {
 			for (String couple : offsets) {
 				console.println("\t"+couple);
 			}
+		}
+	}
+
+	@Test
+	public void minFrequency25Groups_Test() {
+		Long frequency = 25L;
+		console.println("\nOnly groups that match more than 24 times");
+		FindEntity finder = new FindEntity(currentRE, toTest);
+		Map<String, Group> results = finder.grouphMinFrequencyOf(frequency);
+		Iterator<String> iterator = results.keySet().iterator();
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			assertTrue("Only groups that match more than 24 times, counted: " 
+				+ results.get(k), results.get(k).getCount() > 0L);
+			console.println(k +" (" + results.get(k).getCount() + " times)");
+		}
+	}
+
+	@Test
+	public void minFrequency10Groups_Test() {
+		Long frequency = 10L;
+		console.println("\nOnly groups that match more than 24 times");
+		FindEntity finder = new FindEntity(currentRE, toTest);
+		Map<String, Group> results = finder.grouphMinFrequencyOf(frequency);
+		Iterator<String> iterator = results.keySet().iterator();
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			assertTrue("Only groups that match more than 24 times, counted: " 
+				+ results.get(k), results.get(k).getCount() > 0L);
+			console.println(k +" (" + results.get(k).getCount() + " times)");
 		}
 	}
 }
