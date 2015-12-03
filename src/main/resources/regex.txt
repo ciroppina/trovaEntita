@@ -1,0 +1,16 @@
+### THIS FILE CONTAINS REGEXes ONLY FOR JAVA PARTTERN ###
+REGEX_01: (\\b[A-Z]+[A-Za-z\\.]+\\s*)+
+VUOLDIRE: iniziando da un word-boundary(\\b), trova almeno una espressione contenente una o piu parole ke iniziano con una o piu lettere maiuscole, ke possono contenere caratteri maiuscoli minuscoli punteggiatura e ogni altro carattere visbile una o piu volte, ke possono essere separate da uno space o un a-capo.
+NOTA: word-boundaries sono spazi prima e dopo la parola, punteggiatura, numeri
+ESEMPIO: Avv. OSVALDO Bevilacqua (viene trovata intera) 
+ESEMPIO: Ministero dell' Istruzione (NON viene trovata intera)
+
+REGEX_02: (\\b[A-Z]+[A-Za-z\\.]+\\s*[dielao']*\\s*\\b){1,}
+VUOLDIRE: iniziando da un word-boundary(\\b), trova almeno una espressione contenente una o piu parole ke iniziano con una o piu lettere maiuscole, ke possono contenere caratteri maiuscoli minuscoli punteggiatura e ogni altro carattere visbile una o piu volte, ke possono essere separate da uno space o un a-capo, che dopo lo spazio l'espressione possa contenere: il|le|la|al|di|della|del|dello|l'. La lunghezza dell'espressione deve essere di almeno una parola.
+ESEMPIO: Ministero dell' Istruzione (viene trovata intera)
+
+REGEX_03: (\\b[A-Z]+[A-Za-z\\.]+\\s*(d[aeiolg']+)*\\s*\\b){2,}
+REGEX_03_OLD: (\\b[A-Z]+[A-Za-z\\.]+\\s*(d[a-z']+)*\\s*\\b){2,}
+VUOLDIRE: iniziando da un word-boundary(\\b), trova almeno una espressione contenente una o piu parole ke iniziano con una o piu lettere maiuscole, ke possono contenere caratteri maiuscoli minuscoli punteggiatura e ogni altro carattere visbile una o piu volte, ke possono essere separate da uno space o un a-capo, che dopo lo spazio l'espressione possa contenere: di|della|del|dello|dell'. La lunghezza dell'espressione deve essere di almeno due parole.
+ESEMPIO: Ministero dell' Istruzione (viene trovata intera)
+ESEMPIO: l'Istruzione (NON viene trovata intera)

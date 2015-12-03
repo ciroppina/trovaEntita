@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>it.ciroppina</groupId>
+    <artifactId>trovaEntita</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>trovaEntita</name>
+    <packaging>jar</packaging>
+  	<url>http://trovaEntita.ciroppina.it</url>
+  	<description>Package is useful to find entities (capitalized word) into texts, by using regex-es</description>    
+    
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.testSource>1.7</maven.compiler.testSource>
+        <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <reporting>
+		<plugins>
+		  <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-project-info-reports-plugin</artifactId>
+			<version>2.8.1</version>
+		  </plugin>
+		</plugins>
+  	</reporting>
+    
+    <dependencies>
+    	<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<version>4.11</version>
+    	</dependency>
+    </dependencies>
+</project>
