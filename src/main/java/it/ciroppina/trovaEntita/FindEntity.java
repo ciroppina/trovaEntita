@@ -1,7 +1,5 @@
 package it.ciroppina.trovaEntita;
 
-import static org.junit.Assert.fail;
-
 import java.io.PrintStream;
 import java.util.Collections;
 import java.util.Comparator;
