@@ -13,6 +13,7 @@ public class Group {
 	private String match = "";
 	private Long count = 0L;
 	private List<String> offsets;
+	private String mainQualifier;
 
 	public Group(String match) {
 		this.match = match;
@@ -41,4 +42,13 @@ public class Group {
 	public List<String> getOffsetList() {
 		return this.offsets;
 	}
+
+	protected void updateMainQualifier(String qualifier) {
+		this.mainQualifier = qualifier;
+	}
+	
+	public String getMainQualifier() {
+		return mainQualifier;
+	}
+
 }

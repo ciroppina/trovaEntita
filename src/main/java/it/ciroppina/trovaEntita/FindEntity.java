@@ -219,6 +219,18 @@ public class FindEntity {
 	}
 
 	/**
+	 * update the Main Qualifier of a Group
+	 * not-sure-to-leave-here
+	 * @param g: a Group object
+	 * @param qualifier: a string that qualifies the type of Group
+	 */
+	public Group update(Group g, String qualifier) {
+		g.updateMainQualifier("PERSON");
+		Group result = g;
+		return g;
+	}
+
+	/**
 	 * Utilities
 	 */
 	

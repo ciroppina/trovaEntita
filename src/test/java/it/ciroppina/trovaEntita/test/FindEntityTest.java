@@ -52,7 +52,8 @@ public class FindEntityTest {
 		currentRE = regex.getProperty("REGEX_03");
 		//debug: console.println("RegEx under test: " + currentRE);
 
-		FileInputStream in  = new FileInputStream( new File(whereIAm + "/src/test/resources/64981.txt")); //194.txt
+		FileInputStream in  = new FileInputStream( 
+			new File(whereIAm + "/src/test/resources/64981.txt")); //194.txt
 		byte[] b = new byte[in.available()]; in.read(b);
 		toTest = new String(b, StandardCharsets.UTF_8);
 		//debug: console.println("Text under test: " + toTest);
@@ -208,5 +209,31 @@ public class FindEntityTest {
 				+ results.get(k), results.get(k).getCount() > 0L);
 			console.println(k +" (" + results.get(k).getCount() + " times)");
 		}
+	}
+	
+	@Test
+	public void isAPersonName_frequency_Test() {
+		Long frequency = 9L;
+		console.println("\nAll groups that match at least 10 times");
+		FindEntity finder = new FindEntity(currentRE, toTest);
+		Map<String, Group> groups = finder.grouphMinFrequencyOf(frequency);
+		Iterator<String> iterator = groups.keySet().iterator();
+		
+		Long start = System.currentTimeMillis();
+		Long count = 0L;
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			Group g = groups.get(k);
+			if (ITNomiLoader.splitAndSearch( groups.get(k).getMatch())) {
+				new FindEntity().update(g, "PERSON");
+				console.println(k + " looks like a " + groups.get(k).getMainQualifier());
+				count++;
+			}
+		}
+		console.print("\n\tTHE WHOLE SEARCH TOOK ONLY: " 
+				+ (System.currentTimeMillis() - start) / 1000.0
+				+ " seconds, for finding: " + count + " PERSONs");
+		
+		assertTrue(true);
 	}
 }
