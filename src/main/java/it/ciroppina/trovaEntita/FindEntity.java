@@ -78,15 +78,6 @@ public class FindEntity {
 		return hm;
 	}
 	
-	public void consoleThis(String theText) {
-		try {
-			console.println(theText);	
-		} catch (Exception e) {
-			console.println(e.getLocalizedMessage());
-		}
-	}
-
-
 	/**
 	 * counts only the occurrences the reGex matches of every group
 	 * when they are > of frequency threshold
@@ -125,7 +116,7 @@ public class FindEntity {
 				results.put(k, Long.parseLong(""+results.get(k)) + 1L);
 			}
 		}
-		console.println("FindEntity - found: " 
+		consoleThis("FindEntity - found: " 
 			+ results.size() + " groups (matches) for this pattern: " + this.regEx);
 		
 		return sortByValue(results);
@@ -155,7 +146,7 @@ public class FindEntity {
 				results.put(k, g);
 			}
 		}
-		console.println("FindEntity - found: " 
+		consoleThis("FindEntity - found: " 
 			+ results.size() + " Group-objects that match this pattern: " + this.regEx);
 		
 		return sortByProperty(results);
@@ -184,7 +175,7 @@ public class FindEntity {
 			g.addOffsets(pm.start(), pm.end());
 			results.put(k, g);
 		}
-		console.println("FindEntity - in-memory stored: " 
+		consoleThis("FindEntity - in-memory stored: " 
 				+ results.size() + " Group-objects that match this pattern: " + this.regEx);
 		
 		return sortByProperty(results);
@@ -196,7 +187,7 @@ public class FindEntity {
 	 * @param frequency: minimum occurrences of the regEx, in the text
 	 * @return results: the (descending) sorted map of all the Group-objects built
 	 */
-	public Map<String, Group> grouphMinFrequencyOf(Long frequency) {
+	public Map<String, Group> groupWithMinFrequencyOf(Long frequency) {
 		Map<String, Group> counted = storeGroupsOccurrencesFoundIn(this.text);
 		Map<String, Group> results = new HashMap<String, Group>();
 		Iterator<String> keys = counted.keySet().iterator();
@@ -206,6 +197,36 @@ public class FindEntity {
 		}
 		
 		return sortByProperty(results);
+	}
+
+	public Map<String, Group> people(Map<String, Group> groups) {
+		Map<String, Group> people = new HashMap<String, Group>();
+		
+		Iterator<String> iterator = groups.keySet().iterator();
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			Group g = groups.get(k);
+			//this test is wrong, DO NOT DIRCTLY use ITNomiLoader
+			if (ITNomiLoader.splitAndSearch( groups.get(k).getMatch())) {
+				update(g, "PERSON");
+				people.put(g.getMatch(), g);
+				//debug: consoleThis(k + " looks like a " + groups.get(k).getMainQualifier());
+			}
+		}
+		
+		return sortByProperty(people);
+	}
+
+	/**
+	 * prints to the standard output
+	 * @param theText
+	 */
+	private void consoleThis(String theText) {
+		try {
+			console.println(theText);	
+		} catch (Exception e) {
+			console.println(e.getLocalizedMessage());
+		}
 	}
 
 	/**
@@ -224,10 +245,10 @@ public class FindEntity {
 	 * @param g: a Group object
 	 * @param qualifier: a string that qualifies the type of Group
 	 */
-	public Group update(Group g, String qualifier) {
-		g.updateMainQualifier("PERSON");
+	private Group update(Group g, String qualifier) {
+		g.updateMainQualifier(qualifier);
 		Group result = g;
-		return g;
+		return result;
 	}
 
 	/**

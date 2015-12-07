@@ -1,4 +1,4 @@
-package it.ciroppina.trovaEntita.test;
+package it.ciroppina.trovaEntita;
 
 import java.io.File;
 import java.io.FileInputStream;

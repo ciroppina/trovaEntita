@@ -30,7 +30,7 @@ public class FindEntityTest {
 
 	private static final PrintStream console = System.out;
 	private static final Enumeration<Object> keys = System.getProperties().keys();
-	private static String currentRE = null;
+	private static String CAPITALIZED_WORDS = null;
 	private static String toTest = null;
 	private static Pattern p = null;
 
@@ -49,8 +49,8 @@ public class FindEntityTest {
 
 		Properties regex = new Properties();
 		regex.load(new FileInputStream(new File(regexFile)));
-		currentRE = regex.getProperty("REGEX_03");
-		//debug: console.println("RegEx under test: " + currentRE);
+		CAPITALIZED_WORDS = regex.getProperty("REGEX_03");
+		//debug: console.println("RegEx under test: " + CAPITALIZED_WORDS);
 
 		FileInputStream in  = new FileInputStream( 
 			new File(whereIAm + "/src/test/resources/64981.txt")); //194.txt
@@ -62,7 +62,7 @@ public class FindEntityTest {
 
 	@After
 	public void tearDown() throws Exception {
-		currentRE = null;
+		CAPITALIZED_WORDS = null;
 		toTest = null;
 		p = null;
 		System.gc();
@@ -80,7 +80,7 @@ public class FindEntityTest {
 	@Test
 	public void regExUnderTestIsValid_Test() {
 		assertTrue("Should be a valid regular expression", 
-			new FindEntity().isValidRegEx(currentRE));
+			new FindEntity().isValidRegEx(CAPITALIZED_WORDS));
 	}
 
 	@Test
@@ -95,20 +95,20 @@ public class FindEntityTest {
 	
 	@Test
 	public void howManyMatches_Test() {
-		FindEntity finder = new FindEntity(currentRE);
-		if (finder.isValidRegEx(currentRE)) {
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS);
+		if (finder.isValidRegEx(CAPITALIZED_WORDS)) {
 			long hm = finder.howManyMatchesFindsInto(toTest);
 			assertTrue("Should match more than once", hm > 1);
 		} else {
-			fail("Invalid regEx! Check it: " + currentRE);
-			console.println("Invalid regEx! Check it: " + currentRE);
+			fail("Invalid regEx! Check it: " + CAPITALIZED_WORDS);
+			console.println("Invalid regEx! Check it: " + CAPITALIZED_WORDS);
 		}
 	}
 
 	@Test
 	public void howManyPerMatch_Test() {
 		console.println("\nOnly groups that match more than 0 times");
-		FindEntity finder = new FindEntity(currentRE);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS);
 		Map<String, Long> results = finder.countHowManyPerMatchInto(toTest);
 		Iterator<String> iterator = results.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -122,7 +122,7 @@ public class FindEntityTest {
 	public void minFrequency10_Test() {
 		Long frequency = 10L;
 		console.println("\nOnly groups that match more than 9 times");
-		FindEntity finder = new FindEntity(currentRE, toTest);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS, toTest);
 		Map<String, Long> results = finder.matchMinFrequencyOf(frequency);
 		Iterator<String> iterator = results.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -136,7 +136,7 @@ public class FindEntityTest {
 	public void minFrequency25_Test() {
 		Long frequency = 25L;
 		console.println("\nOnly groups that match more than 24 times");
-		FindEntity finder = new FindEntity(currentRE, toTest);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS, toTest);
 		Map<String, Long> results = finder.matchMinFrequencyOf(frequency);
 		Iterator<String> iterator = results.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -149,7 +149,7 @@ public class FindEntityTest {
 	@Test
 	public void countGroups_Test() {
 		console.println("\nReturns Group-objects that match more than 0 times");
-		FindEntity finder = new FindEntity(currentRE);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS);
 		Map<String, Group> results = finder.countGroupsInto(toTest);
 		Iterator<String> iterator = results.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -165,7 +165,7 @@ public class FindEntityTest {
 	@Test
 	public void populateGroupsWithOccurrences_Test() {
 		console.println("\nReturns Group-objects that match more than 0 times");
-		FindEntity finder = new FindEntity(currentRE);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS);
 		Map<String, Group> results = finder.storeGroupsOccurrencesFoundIn(toTest);
 		assertTrue("Nr-Of-Matches SHOULD MATCH TO Nr-Of-Groups", 
 				finder.countGroupsInto(toTest).size() == results.size());
@@ -185,8 +185,8 @@ public class FindEntityTest {
 	public void minFrequency25Groups_Test() {
 		Long frequency = 25L;
 		console.println("\nOnly groups that match more than 24 times");
-		FindEntity finder = new FindEntity(currentRE, toTest);
-		Map<String, Group> results = finder.grouphMinFrequencyOf(frequency);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS, toTest);
+		Map<String, Group> results = finder.groupWithMinFrequencyOf(frequency);
 		Iterator<String> iterator = results.keySet().iterator();
 		while (iterator.hasNext()) {
 			String k = iterator.next();
@@ -200,8 +200,8 @@ public class FindEntityTest {
 	public void minFrequency10Groups_Test() {
 		Long frequency = 10L;
 		console.println("\nOnly groups that match more than 24 times");
-		FindEntity finder = new FindEntity(currentRE, toTest);
-		Map<String, Group> results = finder.grouphMinFrequencyOf(frequency);
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS, toTest);
+		Map<String, Group> results = finder.groupWithMinFrequencyOf(frequency);
 		Iterator<String> iterator = results.keySet().iterator();
 		while (iterator.hasNext()) {
 			String k = iterator.next();
@@ -212,28 +212,25 @@ public class FindEntityTest {
 	}
 	
 	@Test
-	public void isAPersonName_frequency_Test() {
+	public void onlyPeople_frequency_Test() {
 		Long frequency = 9L;
-		console.println("\nAll groups that match at least 10 times");
-		FindEntity finder = new FindEntity(currentRE, toTest);
-		Map<String, Group> groups = finder.grouphMinFrequencyOf(frequency);
-		Iterator<String> iterator = groups.keySet().iterator();
-		
+		console.println("\nAll groups that match at least 10 times AND looks like PEOPLE");
+		FindEntity finder = new FindEntity(CAPITALIZED_WORDS, toTest);
+		Map<String, Group> groups = finder.groupWithMinFrequencyOf(frequency);
+		Map<String, Group> people = finder.people(groups);
+		Iterator<String> iterator = people.keySet().iterator();
+
 		Long start = System.currentTimeMillis();
-		Long count = 0L;
 		while (iterator.hasNext()) {
 			String k = iterator.next();
-			Group g = groups.get(k);
-			if (ITNomiLoader.splitAndSearch( groups.get(k).getMatch())) {
-				new FindEntity().update(g, "PERSON");
-				console.println(k + " looks like a " + groups.get(k).getMainQualifier());
-				count++;
-			}
+			assertTrue("Only groups that match min. "+ frequency+" times, counted: " 
+				+ people.get(k), people.get(k).getCount() > 0L);
+			console.println(k +" (" + people.get(k).getCount() + " times) is a: " + people.get(k).getMainQualifier());
+			assertTrue("Should only be PERSON", people.get(k).getMainQualifier().equals("PERSON"));
 		}
-		console.print("\n\tTHE WHOLE SEARCH TOOK ONLY: " 
-				+ (System.currentTimeMillis() - start) / 1000.0
-				+ " seconds, for finding: " + count + " PERSONs");
-		
-		assertTrue(true);
+		console.println("TO QUALIFY PEOPLE IT TOOK: " 
+				+ ((System.currentTimeMillis() - start) / 1000.0) + " seconds");
+
+		//assertTrue(true);
 	}
 }
