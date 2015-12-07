@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.ciroppina</groupId>
     <artifactId>trovaEntita</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <name>trovaEntita</name>
     <packaging>jar</packaging>
   	<url>http://trovaEntita.ciroppina.it</url>
@@ -12,8 +12,7 @@
 		<connection>scm:git:git@github.com:ciroppina/trovaEntita</connection>
 		<url>scm:git:git@github.com:ciroppina/trovaEntita</url>
 		<developerConnection>scm:git:git@github.com:ciroppina/trovaEntita</developerConnection>
-		<tag>trovaEntita-1.0</tag>
-	</scm>
+  </scm>
   
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
