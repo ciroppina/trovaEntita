@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.ciroppina</groupId>
     <artifactId>trovaEntita</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <name>trovaEntita</name>
     <packaging>jar</packaging>
   	<url>http://trovaEntita.ciroppina.it</url>
-  	<description>Package is useful to find entities (capitalized word) into texts, by using regex-es</description>    
+  	<description>Package is useful to find entities (capitalized words, phone numbers, etc.) into texts, by using regex-es</description>    
     
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
