@@ -5722,7 +5722,6 @@ nannina
 nannino
 naomi
 napoleone
-napoli
 napolina
 napolino
 nara
@@ -5932,8 +5931,6 @@ nobilina
 noemi
 noemia
 noemio
-nola
-nolano
 nolasco
 nolberto
 nona
@@ -7603,7 +7600,6 @@ roldo
 roliano
 rolino
 rollando
-roma
 romaldino
 romaldo
 romana
