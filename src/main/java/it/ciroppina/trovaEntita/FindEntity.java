@@ -90,7 +90,7 @@ public class FindEntity {
 		Iterator<String> keys = counted.keySet().iterator();
 		while (keys.hasNext()) {
 			String k = keys.next();
-			if (counted.get(k) > frequency) results.put(k, counted.get(k));
+			if (counted.get(k) >= frequency) results.put(k, counted.get(k));
 		}
 		return sortByValue(results);
 	}
@@ -127,7 +127,7 @@ public class FindEntity {
 	 * @param toTest: the text to parse with the regEx
 	 * @return results: the descending-sorted (occurrences) map of matching Group-objects
 	 */
-	public Map<String, Group> countGroupsInto(String toTest) {
+	public Map<String, Group> createGroupsFrom(String toTest) {
 		Map<String, Group> results = new HashMap<String, Group>();
 		if (! isValidRegEx(this.regEx)) {
 			results.put("NOT A VALID REGEX: " + this.regEx, new Group("NOT A VALID REGEX"+ this.regEx));
@@ -142,7 +142,8 @@ public class FindEntity {
 				g.add(1L);
 				results.put(k, g);
 			} else {
-				g.add( Long.parseLong(""+results.get(k).getCount()) + 1L );
+				g=results.get(k);
+				g.add( 1L );
 				results.put(k, g);
 			}
 		}
@@ -193,12 +194,17 @@ public class FindEntity {
 		Iterator<String> keys = counted.keySet().iterator();
 		while (keys.hasNext()) {
 			String k = keys.next();
-			if (counted.get(k).getCount() > frequency) results.put(k, counted.get(k));
+			if (counted.get(k).getCount() >= frequency) results.put(k, counted.get(k));
 		}
 		
 		return sortByProperty(results);
 	}
 
+	/**
+	 * builds a Map with the only Gorups qualified as PERSON
+	 * @param groups: all the found Group-objects, to be qualified
+	 * @return people: a new Map of Groups
+	 */
 	public Map<String, Group> people(Map<String, Group> groups) {
 		Map<String, Group> people = new HashMap<String, Group>();
 		
@@ -216,7 +222,31 @@ public class FindEntity {
 		
 		return sortByProperty(people);
 	}
+	
+	/**
+	 * builds a Map with the every qualified Groups
+	 * @param groups: all the found Group-objects, to be qualified
+	 * @return every: a new Map of Groups
+	 */
+	public Map<String, Group> everyQualifier(Map<String, Group> groups) {
+		Map<String, Group> every = new HashMap<String, Group>();
+		
+		Iterator<String> iterator = groups.keySet().iterator();
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			Group g = groups.get(k);
+			//this test is wrong, DO NOT DIRCTLY use ITNomiLoader
+			if (ITNomiLoader.splitAndSearch( groups.get(k).getMatch())) {
+				update(g, "PERSON");
+			}
+			every.put(g.getMatch(), g);
+			//debug: consoleThis(k + " looks like a " + groups.get(k).getMainQualifier());
+		}
+		
+		return sortByProperty(every);
+	}
 
+	
 	/**
 	 * prints to the standard output
 	 * @param theText
