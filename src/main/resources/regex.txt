@@ -1,4 +1,4 @@
-### THIS FILE CONTAINS REGEXes ONLY FOR JAVA PARTTERN ###
+### THIS FILE CONTAINS REGEXes ONLY FOR JAVA PARTTERN MATCHING ###
 REGEX_01: (\\b[A-Z]+[A-Za-z\\.]+\\s*)+
 VUOLDIRE: iniziando da un word-boundary(\\b), trova almeno una espressione contenente una o piu parole ke iniziano con una o piu lettere maiuscole, ke possono contenere caratteri maiuscoli minuscoli punteggiatura e ogni altro carattere visbile una o piu volte, ke possono essere separate da uno space o un a-capo.
 NOTA: word-boundaries sono spazi prima e dopo la parola, punteggiatura, numeri
