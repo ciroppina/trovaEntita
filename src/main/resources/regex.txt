@@ -14,3 +14,9 @@ REGEX_03_OLD: (\\b[A-Z]+[A-Za-z\\.]+\\s*(d[a-z']+)*\\s*\\b){2,}
 VUOLDIRE: iniziando da un word-boundary(\\b), trova almeno una espressione contenente una o piu parole ke iniziano con una o piu lettere maiuscole, ke possono contenere caratteri maiuscoli minuscoli punteggiatura e ogni altro carattere visbile una o piu volte, ke possono essere separate da uno space o un a-capo, che dopo lo spazio l'espressione possa contenere: di|della|del|dello|dell'. La lunghezza dell'espressione deve essere di almeno due parole.
 ESEMPIO: Ministero dell' Istruzione (viene trovata intera)
 ESEMPIO: l'Istruzione (NON viene trovata intera)
+
+REGEX_04: \\b[0|3]{1,1}[0-9]{2,2}[\\s]{0,1}[0-9]{7,8}
+VUOLDIRE: numeri di telefono che iniziano con 0 o 3 e contegono un solo spazio; anche P. IVA !
+
+REGEX_05: \\b[a-zA-Z0-9:\\s\\.]{10,10}targa[a-zA-Z0-9:\\s\\.]{10,10}[\\s]
+VUOLDIRE: veicoli e numeri di "targa"

@@ -248,6 +248,46 @@ public class FindEntity {
 
 	
 	/**
+	 * builds a Map with the NUMBER qualifying Groups
+	 * @param groups: all the found Group-objects, to be qualified
+	 * @return every: a new Map of Groups
+	 */
+	public Map<String, Group> numbers(Map<String, Group> groups) {
+		Map<String, Group> every = new HashMap<String, Group>();
+		
+		Iterator<String> iterator = groups.keySet().iterator();
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			Group g = groups.get(k);
+			update(g, "NUMBER");
+			every.put(g.getMatch(), g);
+			//debug: consoleThis(k + " looks like a " + groups.get(k).getMainQualifier());
+		}
+		
+		return sortByProperty(every);
+	}
+	
+	/**
+	 * builds a Map with the NUMBER qualifying Groups
+	 * @param groups: all the found Group-objects, to be qualified
+	 * @return every: a new Map of Groups
+	 */
+	public Map<String, Group> vehicles(Map<String, Group> groups) {
+		Map<String, Group> every = new HashMap<String, Group>();
+		
+		Iterator<String> iterator = groups.keySet().iterator();
+		while (iterator.hasNext()) {
+			String k = iterator.next();
+			Group g = groups.get(k);
+			update(g, "VEHICLE");
+			every.put(g.getMatch(), g);
+			//debug: consoleThis(k + " looks like a " + groups.get(k).getMainQualifier());
+		}
+		
+		return sortByProperty(every);
+	}
+	
+	/**
 	 * prints to the standard output
 	 * @param theText
 	 */

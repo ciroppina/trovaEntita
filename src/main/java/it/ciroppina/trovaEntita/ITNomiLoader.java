@@ -44,6 +44,7 @@ public class ITNomiLoader {
 	public static void main(String[] args) {}
 
 	public static boolean splitAndSearch(String entity) {
+		if (entity.contains(".") ) return false;
 		String[] splitted = entity.split(" ");
 		for (String part : splitted) {
 			if (part.trim().length() < 3) {}
