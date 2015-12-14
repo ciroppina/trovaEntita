@@ -16,18 +16,29 @@ public class ITNomiLoader {
 	
 	static {
 		console = System.out;
-		File f = new File(System.getProperty("user.dir") + "/src/test/resources/nomi_italiani.txt");
+		FileInputStream in = null;
+		File f = new File(System.getProperty("user.dir") + "/src/main/resources/nomi_italiani.txt");
 		try {
-			FileInputStream in = new FileInputStream(f);
-			byte[] b = new byte[in.available()]; in.read(b);
+			in = new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			f = new File(System.getProperty("user.dir") + "/applconf/nomi_italiani.txt");
+			try {
+				in = new FileInputStream(f);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+		}
+		byte[] b;
+		try {
+			b = new byte[in.available()];
+			in.read(b);
 			NOMI = new String(b, StandardCharsets.UTF_8);
 			//debug:console.print(NOMI);
 			in.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public static void main(String[] args) {}
