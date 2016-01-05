@@ -109,7 +109,8 @@ public class FindEntity {
 		Matcher pm = createFor(toTest);
 		while (pm.find()) { 
 			String k = pm.group(0).trim();
-			k= k.trim().toUpperCase().replace("\r\n", " ").replace("  ", " ");
+			k= k.trim().toUpperCase()
+					   .replace("\r\n", " ").replace("  ", " ");
 			if (results.get(k) == null) {
 				results.put(k, 1L);
 			} else {
@@ -136,7 +137,8 @@ public class FindEntity {
 		Matcher pm = createFor(toTest);
 		while (pm.find()) { 
 			String k = pm.group(0).trim();
-			k= k.trim().toUpperCase().replace("\r\n", " ").replace("  ", " ");
+			k= k.trim().toUpperCase()
+					   .replace("\r\n", " ").replace("  ", " ");
 			Group g = new Group(k);
 			if (results.get(k) == null) {
 				g.add(1L);
@@ -159,16 +161,19 @@ public class FindEntity {
 	 * @param toTest: the text to parse with the regEx
 	 * @return results: the (descending) sorted map of all the Group-objects built
 	 */
-	public Map<String, Group> storeGroupsOccurrencesFoundIn(String toTest) {
+	public Map<String, Group> storeGroupsOccurrencesFoundIn(String theText) {
 		Map<String, Group> results = new HashMap<String, Group>();
 		if (! isValidRegEx(this.regEx)) {
 			results.put("NOT A VALID REGEX: " + this.regEx, new Group("NOT A VALID REGEX"+ this.regEx));
 			return results;
 		}
-		Matcher pm = createFor(toTest);
+		Matcher pm = createFor(theText);
 		while (pm.find()) { 
 			String k = pm.group(0).trim();
-			k= k.trim().toUpperCase().replace("\r\n", " ").replace("  ", " ");
+			k= k.trim().toUpperCase()
+					   .replace("\r\n", " ")
+					   .replace("  ", " ")
+			;
 			Group g = new Group(k);
 			if (results.get(k) != null)
 				g = results.get(k);
