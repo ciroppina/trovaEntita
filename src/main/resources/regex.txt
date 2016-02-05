@@ -15,7 +15,7 @@ VUOLDIRE: iniziando da un word-boundary(\\b), trova almeno una espressione conte
 ESEMPIO: Ministero dell' Istruzione (viene trovata intera)
 ESEMPIO: l'Istruzione (NON viene trovata intera)
 
-REGEX_04: \\b[0|3]{1,1}[0-9]{2,2}[\\s]{0,1}[0-9]{7,8}
+REGEX_04: \\b[0|3]{1,1}[0-9]{2,2}[\\s]{0,1}[0-9]{7,9}
 VUOLDIRE: numeri di telefono che iniziano con 0 o 3 e contegono un solo spazio; anche P. IVA !
 
 REGEX_05: \\b[a-zA-Z0-9:\\s\\.]{10,10}targa[a-zA-Z0-9:\\s\\.]{10,10}[\\s]
